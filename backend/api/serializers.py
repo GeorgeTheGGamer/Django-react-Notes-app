@@ -11,7 +11,7 @@ from rest_framework import serializers
 class UserSerializer(serializers.ModelSerializer):
     # This specifies the User and the fields that will go between JSON object and Django 
     class Meta:
-        model - User
+        model = User
         fields = ["id","username","password"]
         extra_kwargs = {"password": {"write_only": True}}   # No one can read the password (Only can be written to )
 
