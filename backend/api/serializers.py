@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User 
 from rest_framework import serializers
+from .models import Note
 
 
 # ORM (Object relational mapping) - Django handles database operations from just Python Code 
@@ -20,4 +21,14 @@ class UserSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         user = User.objects.create_user(**validated_data)   # Validation data kwarg allows for cleaner all user registration data  
         return user 
+    
+
+# Conversion into JSON Object to be passed to React front end 
+class NotesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Note    # Take the model from the note
+        fields = ["id","title","content","created_at","author"]
+        extra_kwargs = {"author": {"read_only":True}}
+
+
 
